@@ -8,7 +8,7 @@
 import Foundation
 
 struct Person: Decodable {
-    let name: [Name]?
+    let name: [Name]
     let gender: String
     let location: [Location]
     let email: String

@@ -10,9 +10,6 @@ import UIKit
 
 final class MainViewController: UIViewController {
     
-    enum Link: String {
-        case personAPI = "https://randomuser.me/api/"
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
         getPerson()
