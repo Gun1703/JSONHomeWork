@@ -32,7 +32,7 @@ final class MainViewController: UIViewController {
                 let decoder = JSONDecoder()
                 
                 do {
-                    let personInfo = try decoder.decode(Person.self, from: data)
+                    let personInfo = try decoder.decode(Result.self, from: data)
                     print(personInfo)
                 } catch let error {
                     print(error)

@@ -7,12 +7,16 @@
 
 import Foundation
 
+struct Result: Decodable {
+    let results: [Person]
+}
+
 struct Person: Decodable {
-    let name: [Name]
+    let name: Name
     let gender: String
-    let location: [Location]
+    let location: Location
     let email: String
-    let picture: [Picture]
+    let picture: Picture
 }
 
 struct Name: Decodable {
