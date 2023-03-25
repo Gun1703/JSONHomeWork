@@ -56,7 +56,7 @@ extension MainViewController {
         }
     }
     private func getImage() {
-        networkManager.getImage(from: imageURL ?? Link.personUrl.url) { [weak self] result in
+        networkManager.getImage(from: imageURL!) { [weak self] result in
             switch result {
             case .success(let imageData):
                 self?.photoImageView.image = UIImage(data: imageData)
