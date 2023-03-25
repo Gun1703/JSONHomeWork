@@ -21,18 +21,18 @@ final class MainViewController: UIViewController {
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
     private let networkManager = NetworkManager.shared
-    private var imageURL: URL
+    private var imageURL = URL(string: "")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         activityIndicator.startAnimating()
         activityIndicator.hidesWhenStopped = true
-        createPerson()
     }
     
     
     @IBAction func generateButtonTapped(_ sender: UIButton) {
         createPerson()
+        getImage()
     }
     
 }
@@ -56,8 +56,14 @@ extension MainViewController {
         }
     }
     private func getImage() {
-        networkManager.getImage(from: \()) [weak self] result in
-        switch result {
+        networkManager.getImage(from: imageURL ?? Link.personUrl.url) { [weak self] result in
+            switch result {
+            case .success(let imageData):
+                self?.photoImageView.image = UIImage(data: imageData)
+                self?.activityIndicator.stopAnimating()
+            case .failure(let error):
+                print(error)
+            }
             
         }
     }
