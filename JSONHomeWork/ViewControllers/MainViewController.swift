@@ -10,35 +10,42 @@ import UIKit
 
 final class MainViewController: UIViewController {
     
+    
+    @IBOutlet var nameLabel: UILabel!
+    @IBOutlet var genderLabel: UILabel!
+    @IBOutlet var infoLabel: UILabel!
+    
+    
+    @IBOutlet var photoImageView: UIImageView!
+    
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
+    
+    private let networkManager = NetworkManager.shared
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        getPerson()
+        activityIndicator.startAnimating()
+        activityIndicator.hidesWhenStopped = true
+        createPerson()
     }
-    
-    let personURL = "https://randomuser.me/api/"
     
 }
     
-    extension MainViewController {
-        
-        private func getPerson() {
-            guard let url = URL(string: personURL) else { return }
-            
-            URLSession.shared.dataTask(with: url) { data, _, error in
-                guard let data else {
-                    print(error?.localizedDescription ?? "No error description")
-                    return
+//MARK: - Networking
+extension MainViewController {
+    private func createPerson() {
+        networkManager.create(Human.self, from: Link.personUrl.url) { [weak self] result in
+            switch result {
+            case .success(let human):
+                for person in human.results {
+                    self?.nameLabel.text = "\(person.name.first) \(person.name.last)"
+                    self?.genderLabel.text = "\(person.gender)"
+                    self?.infoLabel.text = "Hello, I'm \(person.name.first) \(person.name.last) \n I live in \(person.location.country) country \(person.location.state) state and city \(person.location.city). \n You can write me on email: \n \(person.email)!"
                 }
-                let decoder = JSONDecoder()
-                
-                do {
-                    let personInfo = try decoder.decode(Result.self, from: data)
-                    print(personInfo)
-                } catch let error {
-                    print(error)
-                }
-            }.resume()
+            case .failure(let error):
+                print(error)
+            }
             
         }
-        
     }
+}
