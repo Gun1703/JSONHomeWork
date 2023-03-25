@@ -21,11 +21,17 @@ final class MainViewController: UIViewController {
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
     private let networkManager = NetworkManager.shared
+    private var imageURL: URL
     
     override func viewDidLoad() {
         super.viewDidLoad()
         activityIndicator.startAnimating()
         activityIndicator.hidesWhenStopped = true
+        createPerson()
+    }
+    
+    
+    @IBAction func generateButtonTapped(_ sender: UIButton) {
         createPerson()
     }
     
@@ -41,10 +47,17 @@ extension MainViewController {
                     self?.nameLabel.text = "\(person.name.first) \(person.name.last)"
                     self?.genderLabel.text = "\(person.gender)"
                     self?.infoLabel.text = "Hello, I'm \(person.name.first) \(person.name.last) \n I live in \(person.location.country) country \(person.location.state) state and city \(person.location.city). \n You can write me on email: \n \(person.email)!"
+                    self?.imageURL = person.picture.large
                 }
             case .failure(let error):
                 print(error)
             }
+            
+        }
+    }
+    private func getImage() {
+        networkManager.getImage(from: \()) [weak self] result in
+        switch result {
             
         }
     }
