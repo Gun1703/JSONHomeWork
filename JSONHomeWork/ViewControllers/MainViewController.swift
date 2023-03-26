@@ -29,14 +29,14 @@ final class MainViewController: UIViewController {
         activityIndicator.hidesWhenStopped = true
     }
     
-    
+//    К сожалению не получилось обратиться к JSON из createPeople в функции getImage. Поэтому изображения подгружаются не совсем корректно//
     @IBAction func generateButtonTapped(_ sender: UIButton) {
         createPerson()
         getImage()
     }
     
 }
-    
+
 //MARK: - Networking
 extension MainViewController {
     private func createPerson() {
