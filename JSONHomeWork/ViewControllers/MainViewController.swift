@@ -25,11 +25,12 @@ final class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        activityIndicator.isHidden = true
     }
     
 //    К сожалению не получилось обратиться к JSON из createPeople в функции getImage.
     @IBAction func generateButtonTapped(_ sender: UIButton) {
+        activityIndicator.isHidden.toggle()
         activityIndicator.startAnimating()
         activityIndicator.hidesWhenStopped = true
         createPerson()
