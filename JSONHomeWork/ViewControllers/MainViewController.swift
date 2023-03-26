@@ -25,14 +25,14 @@ final class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        activityIndicator.startAnimating()
-        activityIndicator.hidesWhenStopped = true
+        
     }
     
-//    К сожалению не получилось обратиться к JSON из createPeople в функции getImage. Поэтому изображения подгружаются не совсем корректно//
+//    К сожалению не получилось обратиться к JSON из createPeople в функции getImage.
     @IBAction func generateButtonTapped(_ sender: UIButton) {
+        activityIndicator.startAnimating()
+        activityIndicator.hidesWhenStopped = true
         createPerson()
-        getImage()
     }
     
 }
@@ -48,6 +48,7 @@ extension MainViewController {
                     self?.genderLabel.text = "\(person.gender)"
                     self?.infoLabel.text = "Hello, I'm \(person.name.first) \(person.name.last) \n I live in \(person.location.country) country \(person.location.state) state and city \(person.location.city). \n You can write me on email: \n \(person.email)!"
                     self?.imageURL = person.picture.large
+                    self?.getImage()
                 }
             case .failure(let error):
                 print(error)
